@@ -1,0 +1,47 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+    "name": "esfine-codespaces-php-template",
+    "features": {
+        "docker-from-docker": {
+            "version": "latest"
+        }
+    },
+    "dockerComposeFile": ["docker-compose.yml"],
+    "workspaceFolder": "/workspace",
+    "service": "app",
+    "shutdownAction": "stopCompose",
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.renderWhitespace": "all",
+                "editor.renderControlCharacters": true,
+                "files.insertFinalNewline": true,
+                "editor.fontLigatures": true,
+                "editor.bracketPairColorization.enabled": true
+            },
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "xdebug.php-debug",
+                "neilbrayfield.php-docblocker"
+            ]
+        }
+    },
+
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "forwardPorts": [
+        80,
+        8888
+    ],
+
+    // Use 'postCreateCommand' to run commands after the container is created.
+"postCreateCommand": "",
+    "portsAttributes": {
+        "80": {
+            "label": "HTTP"
+        },
+        "8888": {
+            "label": "phpMyAdmin"
+        }
+    }
+}

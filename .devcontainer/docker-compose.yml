@@ -1,0 +1,35 @@
+version: "3"
+services:
+  app:
+    build: ./docker/app
+    volumes:
+      - ../:/workspace:cached
+    ports:
+      - 80:80
+    tty: true
+    environment:
+      APP_ENV: local
+      APACHE_DOCUMENT_ROOT: /workspace/public
+  db:
+    image: mysql:8
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: laravel
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      PMA_HOST: 'db'
+      PMA_USER: 'root'
+      PMA_PASSWORD: 'laravel'
+    ports:
+      - 8888:80
+
